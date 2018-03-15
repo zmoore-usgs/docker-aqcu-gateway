@@ -1,7 +1,5 @@
 #!/bin/sh
-set -ex
-
-echo $PWD
+set -e
 
 if [ -z "${KEYSTORE_PASSWORD_FILE}" ] || [ ! -f ${KEYSTORE_PASSWORD_FILE} ]; then
   KEYSTORE_PASSWORD="changeme"
