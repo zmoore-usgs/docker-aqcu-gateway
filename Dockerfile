@@ -10,9 +10,8 @@ ARG nexus_repo=cida-public-snapshots
 ARG artifact_group=gov.usgs.aqcu
 ARG artifact_id=aqcu-gateway
 ARG artifact_version=0.0.1-SNAPSHOT
-ARG artifact_packaging=war
-#RUN curl -k -o app.war -X GET "https://internal.cida.usgs.gov/maven/service/local/artifact/maven/content?r=${nexus_repo}&g=${artifact_group}&a=${artifact_id}&v=${version}&e=${artifact_packaging}"
-ADD aqcu-gateway.jar app.jar
+ARG artifact_packaging=jar
+RUN curl -k -o app.jar -X GET "https://internal.cida.usgs.gov/maven/service/local/artifact/maven/content?r=${nexus_repo}&g=${artifact_group}&a=${artifact_id}&v=${version}&e=${artifact_packaging}"
 
 EXPOSE 8443
 
