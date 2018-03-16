@@ -9,8 +9,7 @@ RUN set -x & \
 ARG nexus_repo=cida-public-snapshots
 ARG artifact_id=aqcu-gateway
 ARG artifact_version=LATEST
-#RUN curl -k -o app.jar -X GET "https://internal.cida.usgs.gov/maven/service/local/artifact/maven/content?r=${nexus_repo}&g=gov.usgs.aqcu&a=${artifact_id}&v=${version}&e=jar"
-ADD aqcu-gateway.jar app.jar
+RUN curl -k -o app.jar -X GET "https://cida.usgs.gov/maven/service/local/artifact/maven/content?r=${nexus_repo}&g=gov.usgs.aqcu&a=${artifact_id}&v=${artifact_version}&e=jar"
 
 ADD entrypoint.sh entrypoint.sh
 RUN ["chmod", "+x", "entrypoint.sh"]
