@@ -15,3 +15,5 @@ ADD entrypoint.sh entrypoint.sh
 RUN ["chmod", "+x", "entrypoint.sh"]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
+
+HEALTHCHECK CMD curl -k 'https://127.0.0.1:443/health' | grep -q '{"status":"UP"}' || exit 1
