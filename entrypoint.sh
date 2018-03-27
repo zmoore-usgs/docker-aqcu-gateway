@@ -16,11 +16,10 @@ if [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
   for c in $CERT_IMPORT_DIRECTORY/*.crt; do
     FILENAME="${c}"
     echo "Importing ${FILENAME}"
-    keytool -importcert -file $FILENAME -alias $FILENAME -keystore $keystoreLocation -storepass $KEYSTORE_PASSWORD -noprompt;
+    keytool -importcert -noprompt -trustcacerts -file $FILENAME -alias $FILENAME -keystore /etc/ssl/certs/java/cacerts -storepass changeit -noprompt;
   done
 fi
 
 java -Djava.security.egd=file:/dev/./urandom -DkeystorePassword=$KEYSTORE_PASSWORD -jar app.jar $@
-# java -Djavax.net.ssl.trustStoreType=pkcs12 -Djavax.net.ssl.trustStore=$keystoreLocation -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PASSWORD -Djava.security.egd=file:/dev/./urandom -DkeystorePassword=$KEYSTORE_PASSWORD -jar app.jar $@
 
 exec env "$@"
