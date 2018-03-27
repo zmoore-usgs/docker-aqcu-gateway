@@ -14,9 +14,9 @@ fi
 
 if [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
   for c in $CERT_IMPORT_DIRECTORY/*.crt; do
-    FILENAME="${CERT_IMPORT_DIRECTORY}/${c}"
+    FILENAME="${c}"
     echo "Importing ${FILENAME}"
-    keytool -importcert -file $CERT_IMPORT_DIRECTORY/$c -alias $c -keystore $keystoreLocation -storepass $KEYSTORE_PASSWORD -noprompt;
+    keytool -importcert -file $FILENAME -alias $FILENAME -keystore $keystoreLocation -storepass $KEYSTORE_PASSWORD -noprompt;
   done
 fi
 
