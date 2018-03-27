@@ -20,6 +20,6 @@ if [ -d "${CERT_IMPORT_DIRECTORY}" ]; then
   done
 fi
 
-java -Djavax.net.ssl.trustStore=$keystoreLocation -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PASSWORD -Djava.security.egd=file:/dev/./urandom -DkeystorePassword=$KEYSTORE_PASSWORD -jar app.jar $@
+java -Djavax.net.ssl.keyStoreType=pkcs12 -Djavax.net.ssl.trustStore=$keystoreLocation -Djavax.net.ssl.trustStorePassword=$KEYSTORE_PASSWORD -Djava.security.egd=file:/dev/./urandom -DkeystorePassword=$KEYSTORE_PASSWORD -jar app.jar $@
 
 exec env "$@"
