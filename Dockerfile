@@ -16,4 +16,4 @@ RUN ["chmod", "+x", "entrypoint.sh"]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
-HEALTHCHECK CMD curl -k 'https://127.0.0.1:${serverPort}/health' | grep -q '{"status":"UP"}' || exit 1
+HEALTHCHECK CMD curl -k "https://127.0.0.1:${serverPort}${serverContextPath}/health" | grep -q '{"status":"UP"}' || exit 1
