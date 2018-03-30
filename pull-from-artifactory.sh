@@ -4,7 +4,7 @@ artifact=$3
 version=$4
 output=$5
 if [ "$version" = "LATEST" ] || [ "$version" = "latest" ]; then
-    version=`curl -s $repo_url/$(echo "$group" | tr . /)/$artifact/maven-metadata.xml | grep latest | sed "s/.*<latest>\([^<]*\)<\/latest>.*/\1/"`
+    version=`curl -k -s $repo_url/$(echo "$group" | tr . /)/$artifact/maven-metadata.xml | grep latest | sed "s/.*<latest>\([^<]*\)<\/latest>.*/\1/"`
 fi
 echo "fetch "$repo_url/$(echo "$group" | tr . /)/$artifact/$version/$artifact-$version.jar""
 curl -k -o $output -X GET "$repo_url/$(echo "$group" | tr . /)/$artifact/$version/$artifact-$version.jar"

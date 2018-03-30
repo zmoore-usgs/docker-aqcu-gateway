@@ -13,8 +13,7 @@ ARG artifact_version=LATEST
 ADD pull-from-artifactory.sh pull-from-artifactory.sh
 RUN ["chmod", "+x", "pull-from-artifactory.sh"]
 
-RUN sh pull-from-artifactory.sh ${repo_name} gov.usgs.aqcu ${artifact_id} ${artifact_version} app.jar
-RUN rm -rf pull-from-artifactory.sh
+RUN ./pull-from-artifactory.sh ${repo_name} gov.usgs.aqcu ${artifact_id} ${artifact_version} app.jar
 
 ADD entrypoint.sh entrypoint.sh
 RUN ["chmod", "+x", "entrypoint.sh"]
