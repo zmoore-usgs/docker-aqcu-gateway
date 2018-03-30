@@ -6,10 +6,15 @@ RUN set -x & \
   apk add --no-cache curl && \
   apk --no-cache add openssl
 
-ARG nexus_repo=cida-public-snapshots
+ARG repo_name=aqcu-maven-centralized
 ARG artifact_id=aqcu-gateway
 ARG artifact_version=LATEST
-RUN curl -k -o app.jar -X GET "https://cida.usgs.gov/maven/service/local/artifact/maven/content?r=${nexus_repo}&g=gov.usgs.aqcu&a=${artifact_id}&v=${artifact_version}&e=jar"
+
+ADD pull-from-artifactory.sh pull-from-artifactory.sh
+RUN ["chmod", "+x", "pull-from-artifactory.sh"]
+
+RUN sh pull-from-artifactory.sh ${repo_name} gov.usgs.aqcu ${artifact_id} ${artifact_version} app.jar
+RUN rm -rf pull-from-artifactory.sh
 
 ADD entrypoint.sh entrypoint.sh
 RUN ["chmod", "+x", "entrypoint.sh"]
