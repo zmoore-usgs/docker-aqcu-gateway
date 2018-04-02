@@ -6,9 +6,9 @@ RUN set -x & \
   apk add --no-cache curl && \
   apk --no-cache add openssl
 
-ARG repo_name=aqcu-maven-centralized
-ARG artifact_id=aqcu-gateway
-ARG artifact_version=LATEST
+ENV repo_name=aqcu-maven-centralized
+ENV artifact_id=aqcu-gateway
+ENV artifact_version=0.0.1-SNAPSHOT
 
 ADD pull-from-artifactory.sh pull-from-artifactory.sh
 RUN ["chmod", "+x", "pull-from-artifactory.sh"]
