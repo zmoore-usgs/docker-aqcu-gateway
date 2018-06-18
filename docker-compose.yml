@@ -3,9 +3,11 @@
 
   secrets:
     tomcat_ssl_crt:
-      file: ./certificates/tomcat/tomcat-wildcard-dev.crt
+      file: ./config/certificates/tomcat/tomcat-wildcard-dev.crt
     tomcat_ssl_key:
-      file: ./certificates/tomcat/tomcat-wildcard-dev.key
+      file: ./config/certificates/tomcat/tomcat-wildcard-dev.key
+    water_auth_secret:
+      file: ./config/waterAuthClientSecret.txt
 
   services:
     aqcu-gateway:
@@ -18,5 +20,7 @@
           target: /tomcat-wildcard-ssl.crt
         - source: tomcat_ssl_key
           target: /tomcat-wildcard-ssl.key
+        - source: water_auth_secret
+          target: /waterAuthClientSecret.txt
       env_file:
         - docker-compose.env

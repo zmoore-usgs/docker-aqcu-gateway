@@ -17,6 +17,12 @@ ENV ribbonMaxAutoRetries=0
 ENV ribbonConnectTimeout=6000
 ENV ribbonReadTimeout=60000
 ENV hystrixThreadTimeout=10000000
-ENV WATER_AUTH_SECRET_PATH=/waterAuthClientSecret.txt
+ENV oauthClientId=client-id
+ENV oauthClientAccessTokenUri=https://example.gov/oauth/token
+ENV oauthClientAuthorizationUri=https://example.gov/oauth/authorize
+ENV oauthResourceTokenKeyUri=https://example.gov/oauth/token_key
+ENV oauthResourceId=resource-id
+
+ENV OAUTH_CLIENT_SECRET_PATH=/oauthClientSecret.txt
 
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
