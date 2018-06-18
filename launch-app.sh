@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
-java -Djava.security.egd=file:/dev/./urandom -DkeystorePassword=$keystorePassword -jar app.jar $@
+if [ -n "${WATER_AUTH_SECRET_PATH}" ]; then
+  waterAuthClientSecret=$(cat ${WATER_AUTH_SECRET_PATH})
+fi
+
+java -Djava.security.egd=file:/dev/./urandom -DoauthClientSecret=$waterAuthClientSecret -DkeystorePassword=$keystorePassword -jar app.jar $@
 
 exec env "$@"

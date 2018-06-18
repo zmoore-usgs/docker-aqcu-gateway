@@ -18,5 +18,6 @@ ENV ribbonMaxAutoRetries=0
 ENV ribbonConnectTimeout=6000
 ENV ribbonReadTimeout=60000
 ENV hystrixThreadTimeout=10000000
+ENV WATER_AUTH_SECRET_PATH=/waterAuthClientSecret.txt
 
 ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
