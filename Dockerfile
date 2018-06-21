@@ -22,6 +22,7 @@ ENV oauthClientAccessTokenUri=https://example.gov/oauth/token
 ENV oauthClientAuthorizationUri=https://example.gov/oauth/authorize
 ENV oauthResourceTokenKeyUri=https://example.gov/oauth/token_key
 ENV oauthResourceId=resource-id
+ENV aqcuLoginUrl=https://localhost:443/
 
 ENV OAUTH_CLIENT_SECRET_PATH=/oauthClientSecret.txt
 
