@@ -1,8 +1,8 @@
-FROM cidasdpdasartip.cr.usgs.gov:8447/wma/wma-spring-boot-base:latest
+FROM cidasdpdasartip.cr.usgs.gov:8447/wma/wma-spring-boot-base:0.0.1
 
 ENV repo_name=aqcu-maven-centralized
 ENV artifact_id=aqcu-gateway
-ENV artifact_version=0.0.4-SNAPSHOT
+ENV artifact_version=0.0.4
 RUN ./pull-from-artifactory.sh ${repo_name} gov.usgs.aqcu ${artifact_id} ${artifact_version} app.jar
 
 ADD launch-app.sh launch-app.sh
