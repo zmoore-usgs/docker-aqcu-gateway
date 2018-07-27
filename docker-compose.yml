@@ -6,21 +6,18 @@
       file: ./config/certificates/tomcat/tomcat-wildcard-dev.crt
     tomcat_ssl_key:
       file: ./config/certificates/tomcat/tomcat-wildcard-dev.key
-    water_auth_secret:
-      file: ./config/oauthClientSecret.txt
 
   services:
-    aqcu-gateway:
+    aqcu-gateway-service:
       build: .
       image: aqcu-gateway-service
       ports:
-        - "443:443"
+        - "8443:8443"
       secrets:
         - source: tomcat_ssl_crt
-          target: /tomcat-wildcard-ssl.crt
+          target: /home/spring/tomcat-wildcard-ssl.crt
         - source: tomcat_ssl_key
-          target: /tomcat-wildcard-ssl.key
-        - source: water_auth_secret
-          target: /oauthClientSecret.txt
+          target: /home/spring/tomcat-wildcard-ssl.key
       env_file:
-        - docker-compose.env
+        - config.env
+        - secrets.env
