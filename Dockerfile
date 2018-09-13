@@ -1,6 +1,6 @@
 FROM cidasdpdasartip.cr.usgs.gov:8447/wma/wma-spring-boot-base:latest
 
-ENV artifact_version=0.0.6-SNAPSHOT
+ENV artifact_version=0.0.6
 ENV serverPort=8443
 ENV legacyServerList=http://localhost:8444
 ENV tssReportServerList=http://localhost:8445
