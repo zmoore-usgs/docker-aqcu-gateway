@@ -1,6 +1,6 @@
 FROM usgswma/wma-spring-boot-base:8-jre-slim
 
-ENV artifact_version=0.0.7
+ENV artifact_version=0.0.8-SNAPSHOT
 ENV serverPort=8443
 ENV legacyServerList=http://localhost:8444
 ENV tssReportServerList=http://localhost:8445
