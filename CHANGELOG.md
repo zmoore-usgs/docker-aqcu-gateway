@@ -3,6 +3,9 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- kmschoep@usgs.gov - use version 0.0.4 wma-spring-boot-base docker image from dockerhub
+
 ## [0.0.3]
 ### Updated
 - kmschoep@usgs.gov  - updated tag for these changelog changes.
