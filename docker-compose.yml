@@ -1,0 +1,23 @@
+---
+  version: '3.5'
+
+  secrets:
+    tomcat_ssl_crt:
+      file: ./config/certificates/tomcat/tomcat-wildcard-dev.crt
+    tomcat_ssl_key:
+      file: ./config/certificates/tomcat/tomcat-wildcard-dev.key
+
+  services:
+    aqcu-gateway-service:
+      build: .
+      image: aqcu-gateway-service
+      ports:
+        - "8443:8443"
+      secrets:
+        - source: tomcat_ssl_crt
+          target: /home/spring/tomcat-wildcard-ssl.crt
+        - source: tomcat_ssl_key
+          target: /home/spring/tomcat-wildcard-ssl.key
+      env_file:
+        - config.env
+        - secrets.env

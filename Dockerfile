@@ -1,41 +1,23 @@
-FROM openjdk:8-jdk-alpine
+FROM usgswma/wma-spring-boot-base:8-jre-slim
 
-RUN set -x & \
-  apk update && \
-  apk upgrade && \
-  apk add --no-cache curl && \
-  apk --no-cache add openssl
-
-ARG repo_name=aqcu-maven-centralized
-ARG artifact_id=aqcu-gateway
-ARG artifact_version=LATEST
-
-ADD pull-from-artifactory.sh pull-from-artifactory.sh
-RUN ["chmod", "+x", "pull-from-artifactory.sh"]
-
-RUN ./pull-from-artifactory.sh ${repo_name} gov.usgs.aqcu ${artifact_id} ${artifact_version} app.jar
-
-ADD entrypoint.sh entrypoint.sh
-RUN ["chmod", "+x", "entrypoint.sh"]
-
-#Default ENV Values
-ENV requireSsl=true
-ENV serverPort=443
-ENV serverContextPath=/
-ENV springFrameworkLogLevel=info
-ENV keystoreLocation=/localkeystore.p12
-ENV keystorePassword=changeme
-ENV keystoreSSLKey=tomcat
-ENV legacyServerList=http://localhost:8443
-ENV tssReportServerList=http://localhost:8444
-ENV dvhydroReportServerList=http://localhost:8444
-ENV ribbonMaxAutoRetries=3
-ENV ribbonConnectTimeout=1000
-ENV ribbonReadTimeout=10000
+ENV artifact_version=0.0.8-SNAPSHOT
+ENV serverPort=8443
+ENV legacyServerList=http://localhost:8444
+ENV tssReportServerList=http://localhost:8445
+ENV dvhydroReportServerList=http://localhost:8445
+ENV ribbonMaxAutoRetries=0
+ENV ribbonConnectTimeout=6000
+ENV ribbonReadTimeout=60000
 ENV hystrixThreadTimeout=10000000
-ENV TOMCAT_CERT_PATH=/tomcat-wildcard-ssl.crt
-ENV TOMCAT_KEY_PATH=/tomcat-wildcard-ssl.key
+ENV oauthClientId=client-id
+ENV oauthClientAccessTokenUri=https://example.gov/oauth/token
+ENV oauthClientAuthorizationUri=https://example.gov/oauth/authorize
+ENV oauthResourceTokenKeyUri=https://example.gov/oauth/token_key
+ENV oauthResourceId=resource-id
+ENV aqcuLoginUrl=https://localhost:8443/
+ENV HEALTHY_RESPONSE_CONTAINS='{"status":"UP"}'
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+RUN ./pull-from-artifactory.sh aqcu-maven-centralized gov.usgs.aqcu aqcu-gateway ${artifact_version} app.jar
 
-HEALTHCHECK CMD curl -k "https://127.0.0.1:${serverPort}${serverContextPath}/health" | grep -q '{"status":"UP"}' || exit 1
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -k "https://127.0.0.1:${serverPort}${serverContextPath}${HEALTH_CHECK_ENDPOINT}" | grep -q ${HEALTHY_RESPONSE_CONTAINS} || exit 1
